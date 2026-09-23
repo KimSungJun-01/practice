@@ -1,9 +1,9 @@
 package com.practice.global.initData;
 
-import com.practice.boundedContext.member.entity.Member;
-import com.practice.boundedContext.post.entity.Post;
-import com.practice.boundedContext.member.service.MemberService;
-import com.practice.boundedContext.post.service.PostService;
+import com.practice.boundedContext.member.domain.Member;
+import com.practice.boundedContext.post.domain.Post;
+import com.practice.boundedContext.member.app.MemberService;
+import com.practice.boundedContext.post.app.PostService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.context.annotation.Bean;

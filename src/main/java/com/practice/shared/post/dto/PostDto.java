@@ -1,6 +1,6 @@
 package com.practice.shared.post.dto;
 
-import com.practice.boundedContext.post.entity.Post;
+import com.practice.boundedContext.post.domain.Post;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 

@@ -1,8 +1,8 @@
-package com.practice.boundedContext.member.service;
+package com.practice.boundedContext.member.app;
 
-import com.practice.boundedContext.member.entity.Member;
+import com.practice.boundedContext.member.domain.Member;
 import com.practice.global.exception.DomainException;
-import com.practice.boundedContext.member.repository.MemberRepository;
+import com.practice.boundedContext.member.out.MemberRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;

@@ -1,8 +1,8 @@
-package com.practice.boundedContext.post.service;
+package com.practice.boundedContext.post.app;
 
-import com.practice.boundedContext.member.entity.Member;
-import com.practice.boundedContext.post.entity.Post;
-import com.practice.boundedContext.post.repository.PostRepository;
+import com.practice.boundedContext.member.domain.Member;
+import com.practice.boundedContext.post.domain.Post;
+import com.practice.boundedContext.post.out.PostRepository;
 import com.practice.global.eventPublisher.EventPublisher;
 import com.practice.shared.post.dto.PostDto;
 import com.practice.shared.post.event.PostCreatedEvent;
