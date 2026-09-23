@@ -1,7 +1,5 @@
 package com.practice.boundedContext.post.domain;
 
-import com.practice.global.jpa.entity.BaseIdAndTime;
-import com.practice.global.jpa.entity.BaseIdAndTimeManual;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
