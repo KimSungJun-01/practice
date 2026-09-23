@@ -4,10 +4,7 @@ import com.practice.global.jpa.entity.BaseIdAndTime;
 import com.practice.boundedContext.member.domain.Member;
 import com.practice.shared.post.dto.PostCommentDto;
 import com.practice.shared.post.event.PostCommentCreatedEvent;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -19,6 +16,7 @@ import static jakarta.persistence.CascadeType.REMOVE;
 import static jakarta.persistence.FetchType.LAZY;
 
 @Entity
+@Table(name = "POST_POST")
 @NoArgsConstructor
 @Getter
 public class Post extends BaseIdAndTime {
