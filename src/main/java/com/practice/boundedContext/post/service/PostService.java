@@ -1,0 +1,35 @@
+package com.practice.boundedContext.post.service;
+
+import com.practice.boundedContext.member.entity.Member;
+import com.practice.boundedContext.post.entity.Post;
+import com.practice.boundedContext.post.repository.PostRepository;
+import com.practice.global.eventPublisher.EventPublisher;
+import com.practice.shared.post.dto.PostDto;
+import com.practice.shared.post.event.PostCreatedEvent;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+
+import java.util.Optional;
+
+@Service
+@RequiredArgsConstructor
+public class PostService {
+    private final PostRepository postRepository;
+    private final EventPublisher eventPublisher;
+
+    public long count() {
+        return postRepository.count();
+    }
+
+    public Post write(Member author, String title, String content) {
+        Post post = postRepository.save(new Post(author, title, content));
+
+        eventPublisher.publish(new PostCreatedEvent(new PostDto(post)));
+
+        return post;
+    }
+
+    public Optional<Post> findById(int id) {
+        return postRepository.findById((long) id);
+    }
+}
