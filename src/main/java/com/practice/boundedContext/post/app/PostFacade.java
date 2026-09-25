@@ -2,8 +2,11 @@ package com.practice.boundedContext.post.app;
 
 import com.practice.boundedContext.member.domain.Member;
 import com.practice.boundedContext.post.domain.Post;
+import com.practice.boundedContext.post.domain.PostMember;
+import com.practice.boundedContext.post.out.PostMemberRepository;
 import com.practice.boundedContext.post.out.PostRepository;
 import com.practice.global.rsData.RsData;
+import com.practice.shared.member.dto.MemberDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,6 +18,7 @@ import java.util.Optional;
 public class PostFacade {
     private final PostRepository postRepository;
     private final PostWriteUseCase postWriteUseCase;
+    private final PostMemberRepository postMemberRepository;
 
     @Transactional(readOnly = true)
     public long count() {
@@ -29,5 +33,20 @@ public class PostFacade {
     @Transactional(readOnly = false)
     public Optional<Post> findById(int id) {
         return postRepository.findById(id);
+    }
+
+    @Transactional
+    public PostMember syncMember(MemberDto member) {
+        PostMember _member = new PostMember(
+                member.getUsername(),
+                "",
+                member.getNickname()
+        );
+
+        _member.setId(member.getId());
+        _member.setCreateDate(member.getCreateDate());
+        _member.setModifyDate(member.getModifyDate());
+
+        return postMemberRepository.save(_member);
     }
 }
