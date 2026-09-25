@@ -21,6 +21,6 @@ public class CashMember extends ReplicaMember {
             String password,
             String nickname,
             int activityScore) {
-        super(id, createDate, modifyDate, nickname, username, password, activityScore);
+        super(id, createDate, modifyDate, username, password, nickname, activityScore);
     }
 }
