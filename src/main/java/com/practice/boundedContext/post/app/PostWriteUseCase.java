@@ -29,7 +29,7 @@ public class PostWriteUseCase {
         String randomSecureTip = memberApiClient.getRandomSecureTip();
         return new RsData<>(
                 "201-1",
-                "%번 글이 생성되었습니다. 보안 팁 : %s".formatted(post.getId(), randomSecureTip),
+                "%d번 글이 생성되었습니다. 보안 팁 : %s".formatted(post.getId(), randomSecureTip),
                 post
         );
     }
