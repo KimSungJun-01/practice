@@ -3,6 +3,7 @@ package com.practice.boundedContext.post.app;
 import com.practice.boundedContext.member.app.MemberFacade;
 import com.practice.boundedContext.member.domain.Member;
 import com.practice.boundedContext.post.domain.Post;
+import com.practice.boundedContext.post.domain.PostMember;
 import com.practice.boundedContext.post.out.PostRepository;
 import com.practice.global.eventPublisher.EventPublisher;
 import com.practice.global.rsData.RsData;
@@ -21,7 +22,7 @@ public class PostWriteUseCase {
     private final EventPublisher eventPublisher;
     private final MemberApiClient memberApiClient;
 
-    public RsData<Post> write(Member author, String title, String content) {
+    public RsData<Post> write(PostMember author, String title, String content) {
         Post post = postRepository.save(new Post(author, title, content));
 
         eventPublisher.publish(new PostCreatedEvent(new PostDto(post)));
