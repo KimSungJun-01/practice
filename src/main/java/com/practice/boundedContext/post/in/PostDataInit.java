@@ -1,10 +1,7 @@
-package com.practice.global.initData;
+package com.practice.boundedContext.post.in;
 
-import com.practice.boundedContext.member.app.MemberFacade;
-import com.practice.boundedContext.member.domain.Member;
 import com.practice.boundedContext.post.app.PostFacade;
 import com.practice.boundedContext.post.domain.Post;
-import com.practice.boundedContext.post.app.PostWriteUseCase;
 import com.practice.boundedContext.post.domain.PostMember;
 import com.practice.global.rsData.RsData;
 import lombok.extern.slf4j.Slf4j;
@@ -12,43 +9,30 @@ import org.springframework.boot.ApplicationRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Lazy;
+import org.springframework.core.annotation.Order;
 import org.springframework.transaction.annotation.Transactional;
 
 @Configuration
 @Slf4j
-public class DataInit {
-    private final DataInit self;
-    private final MemberFacade memberFacade;
+public class PostDataInit {
+    private final PostDataInit self;
     private final PostFacade postFacade;
 
-    public DataInit(
-            @Lazy DataInit self,
-            MemberFacade memberFacade,
-            PostFacade postFacade) {
+    public PostDataInit(
+            @Lazy PostDataInit self,
+            PostFacade postFacade
+    ) {
         this.self = self;
-        this.memberFacade = memberFacade;
         this.postFacade = postFacade;
     }
 
     @Bean
-    public ApplicationRunner baseInitDataRunner() {
+    @Order(2)
+    public ApplicationRunner postDataInitApplicationRunner() {
         return args -> {
-            self.makeBaseMembers();
             self.makeBasePosts();
             self.makeBasePostComments();
         };
-    }
-
-    @Transactional
-    public void makeBaseMembers() {
-        if (memberFacade.count() > 0) return;
-
-        Member systemMember = memberFacade.join("system", "1234", "시스템").getData();
-        Member holdingMember = memberFacade.join("holding", "1234", "홀딩").getData();
-        Member adminMember = memberFacade.join("admin", "1234", "관리자").getData();
-        Member user1Member = memberFacade.join("user1", "1234", "유저1").getData();
-        Member user2Member = memberFacade.join("user2", "1234", "유저2").getData();
-        Member user3Member = memberFacade.join("user3", "1234", "유저3").getData();
     }
 
     @Transactional
@@ -68,13 +52,13 @@ public class DataInit {
         RsData<Post> post3RsData = postFacade.write(user1Member, "제목3", "내용3");
         log.debug(post3RsData.getMsg());
 
-        RsData<Post> post4RsData = postFacade.write(user1Member, "제목4", "내용4");
+        RsData<Post> post4RsData = postFacade.write(user2Member, "제목4", "내용4");
         log.debug(post4RsData.getMsg());
 
-        RsData<Post> post5RsData = postFacade.write(user1Member, "제목5", "내용5");
+        RsData<Post> post5RsData = postFacade.write(user2Member, "제목5", "내용5");
         log.debug(post5RsData.getMsg());
 
-        RsData<Post> post6RsData = postFacade.write(user1Member, "제목6", "내용6");
+        RsData<Post> post6RsData = postFacade.write(user3Member, "제목6", "내용6");
         log.debug(post6RsData.getMsg());
     }
 
