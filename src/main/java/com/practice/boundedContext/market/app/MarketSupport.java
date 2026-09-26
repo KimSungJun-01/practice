@@ -2,6 +2,7 @@ package com.practice.boundedContext.market.app;
 
 import com.practice.boundedContext.market.domain.Cart;
 import com.practice.boundedContext.market.domain.MarketMember;
+import com.practice.boundedContext.market.domain.Order;
 import com.practice.boundedContext.market.domain.Product;
 import com.practice.boundedContext.market.out.CartRepository;
 import com.practice.boundedContext.market.out.MarketMemberRepository;
@@ -38,5 +39,9 @@ public class MarketSupport {
 
     public long countOrders() {
         return orderRepository.count();
+    }
+
+    public Optional<Order> findOrderById(int id) {
+        return orderRepository.findById(id);
     }
 }

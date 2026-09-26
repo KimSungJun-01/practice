@@ -3,6 +3,7 @@ package com.practice.boundedContext.cash.in;
 import com.practice.boundedContext.cash.app.CashFacade;
 import com.practice.boundedContext.cash.domain.CashMember;
 import com.practice.shared.cash.event.CashMemberCreatedEvent;
+import com.practice.shared.market.event.MarketOrderPaymentRequestedEvent;
 import com.practice.shared.member.event.MemberJoinedEvent;
 import com.practice.shared.member.event.MemberModifiedEvent;
 import lombok.RequiredArgsConstructor;
@@ -34,5 +35,11 @@ public class CashEventListener {
     @Transactional(propagation = REQUIRES_NEW)
     public void handle(CashMemberCreatedEvent event) {
         cashFacade.createWallet(event.getMember());
+    }
+
+    @TransactionalEventListener(phase = AFTER_COMMIT)
+    @Transactional(propagation = REQUIRES_NEW)
+    public void handle(MarketOrderPaymentRequestedEvent event) {
+        cashFacade.handle(event);
     }
 }

@@ -1,6 +1,7 @@
 package com.practice.boundedContext.cash.app;
 
 import com.practice.boundedContext.cash.domain.CashMember;
+import com.practice.boundedContext.cash.domain.CashPolicy;
 import com.practice.boundedContext.cash.domain.Wallet;
 import com.practice.boundedContext.cash.out.CashMemberRepository;
 import com.practice.boundedContext.cash.out.WalletRepository;
@@ -21,5 +22,13 @@ public class CashSupport {
 
     public Optional<Wallet> findWalletByHolder(CashMember holder) {
         return walletRepository.findByHolder(holder);
+    }
+
+    public Optional<Wallet> findWalletByHolderId(int holderId) {
+        return walletRepository.findByHolderId(holderId);
+    }
+
+    public Optional<Wallet> findHoldingWallet() {
+        return walletRepository.findByHolderId(CashPolicy.HOLDING_MEMBER_ID);
     }
 }

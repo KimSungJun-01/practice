@@ -1,6 +1,8 @@
 package com.practice.boundedContext.market.in;
 
 import com.practice.boundedContext.market.app.MarketFacade;
+import com.practice.shared.cash.event.CashOrderPaymentFailedEvent;
+import com.practice.shared.cash.event.CashOrderPaymentSucceededEvent;
 import com.practice.shared.market.event.MarketMemberCreatedEvent;
 import com.practice.shared.member.event.MemberJoinedEvent;
 import com.practice.shared.member.event.MemberModifiedEvent;
@@ -33,5 +35,17 @@ public class MarketEventListener {
     @Transactional(propagation = REQUIRES_NEW)
     public void handle(MarketMemberCreatedEvent event) {
         marketFacade.createCart(event.getMember());
+    }
+
+    @TransactionalEventListener(phase = AFTER_COMMIT)
+    @Transactional(propagation = REQUIRES_NEW)
+    public void handle(CashOrderPaymentSucceededEvent event) {
+        marketFacade.handle(event);
+    }
+
+    @TransactionalEventListener(phase = AFTER_COMMIT)
+    @Transactional(propagation = REQUIRES_NEW)
+    public void handle(CashOrderPaymentFailedEvent event) {
+        marketFacade.handle(event);
     }
 }
